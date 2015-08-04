@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <style>
         .head_shift {
-            margin-top: 35px;
+            margin-top: 65px;
         }
     </style>
 </head>
@@ -38,12 +38,22 @@
                 <%--<input type="password" placeholder="Password" class="form-control">--%>
                 <%--</div>--%>
                 <c:choose>
-                    <c:when test="${not empty sessionScope.me}">
+                    <c:when test="${not empty sessionScope.user}">
                         <div class="form-group">
-
-                            <a href="/task-4/infoCourseStudent"
-                               class="btn btn-success">Welcome, ${sessionScope.me.name}</a>
-                            <a href="/task-4/logout" class="btn btn-danger">Выйти</a>
+                            <c:choose>
+                                <c:when test="${role eq 2}">
+                                    <c:set var="role_2"/>
+                                </c:when>
+                                <c:when test="${role eq 3}">
+                                    <c:set var="role_3"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="role_4"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <a href="/teacher"
+                               class="btn btn-success">Welcome, ${sessionScope.user.firstName}</a>
+                            <a href="/logout" class="btn btn-danger">Выход</a>
 
                         </div>
                     </c:when>
@@ -57,3 +67,4 @@
         <!--/.navbar-collapse -->
     </div>
 </nav>
+<div class="head_shift"></div>
