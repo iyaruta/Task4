@@ -7,7 +7,7 @@
 <div class="head_shift"></div>
 
 <div class="container">
-  <form class="form-signin" action="/task-4/addCourse" method="POST">
+  <form class="form-signin" action="/teacher" method="POST">
     <h2 class="form-signin-heading">Новый курс</h2>
 
     <label for="inputEmail" class="sr-only">Название</label>

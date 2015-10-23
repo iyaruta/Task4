@@ -5,10 +5,12 @@ import java.util.Date;
 public class Course {
 
     private long id;
-    private String firstname;
+    private String firstName;
     private String description;
     private Date start;
     private Date end;
+
+
 
     public long getId() {
         return id;
@@ -18,12 +20,12 @@ public class Course {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getDescription() {

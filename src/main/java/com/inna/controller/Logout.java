@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public class Logout {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String log (HttpServletRequest request, HttpServletResponse response) {
+    public String log (HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session != null){
             session.invalidate();

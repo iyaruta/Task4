@@ -41,10 +41,106 @@ VALUES ('student', md5('123123'), 4, 'Alex', 'Rudenko');
 
 CREATE TABLE COURSE
 (
-ID SERIAL NOT NULL,
-FIRST_NAME VARCHAR (50),
-DESCRIPTION VARCHAR (250),
-START_TIME TIMESTAMP,
-END_TIME TIMESTAMP,
-PRIMARY KEY (ID)
+  ID SERIAL NOT NULL,
+  FIRST_NAME VARCHAR (50),
+  DESCRIPTION VARCHAR (250),
+  START_TIME TIMESTAMP,
+  END_TIME TIMESTAMP,
+  TEACHER_ID BIGINT NOT NULL,
+  CONSTRAINT COURSE_PK PRIMARY KEY (ID)
 );
+
+alter table COURSE
+   add constraint FK_CTS_REF_ROLE foreign key (TEACHER_ID)
+      references USERS (id)
+      on delete restrict on update restrict;
+
+INSERT INTO COURSE(FIRST_NAME, DESCRIPTION, START_TIME, END_TIME, TEACHER_ID)
+VALUES ('физика', 'закон притижения', '10.01.2015', '10.10.2015', COURSE.TEACHER_ID);
+
+
+CREATE TABLE COURSE_TO_STUDENT
+(
+  COURSE_ID SERIAL,
+  STUDENT_ID SERIAL,
+  CONSTRAINT COURSE_TO_STUDENT_PK PRIMARY KEY (COURSE_ID, STUDENT_ID)
+);
+
+alter table COURSE_TO_STUDENT
+   add constraint FK_CTS_REF_COURSE foreign key (COURSE_ID)
+      references USERS (ID)
+      on delete restrict on update restrict;
+
+alter table COURSE_TO_STUDENT
+    add constraint FK_CTS_REF_ROLE foreign key (STUDENT_ID)
+      references USERS (ID)
+      on delete restrict on update restrict;
+
+
+CREATE TABLE QUESTION
+(
+  ID SERIAL NOT NULL,
+  TEST_ID BIGINT NOT NULL,
+  QUESTION VARCHAR NOT NULL,
+  CONSTRAINT QUESTION_PK PRIMARY KEY (ID)
+);
+
+
+alter table QUESTION
+  add constraint FK_CTS_REF_TEST foreign key (TEST_ID)
+  references TEST (ID)
+  on delete restrict on update restrict;
+
+
+
+INSERT INTO QUESTION (TEST_ID, QUESTION)
+VALUES (1, 'How much colors rainbow?');
+
+CREATE TABLE OPTIONS
+(
+  ID SERIAL NOT NULL,
+  QUESTION_ID BIGINT NOT NULL,
+  OPTIONS VARCHAR NOT NULL,
+  SCORE INTEGER NOT NULL,
+  CONSTRAINT OPTIONS_PK PRIMARY KEY (ID)
+);
+
+alter table OPTIONS
+    add constraint FK_CTS_REF_QUESTION foreign key (QUESTION_ID)
+    references QUESTION (ID)
+    on delete restrict on update restrict;
+
+INSERT INTO OPTIONS (QUESTION_ID, OPTIONS, SCORE)
+VALUES (1, 'a', 2);
+
+INSERT INTO OPTIONS (QUESTION_ID, OPTIONS, SCORE)
+VALUES (1, 'b', 0);
+
+INSERT INTO OPTIONS (QUESTION_ID, OPTIONS, SCORE)
+VALUES (1, 'c', 0);
+
+INSERT INTO OPTIONS (QUESTION_ID, OPTIONS, SCORE)
+VALUES (1, 'd', 0);
+
+CREATE TABLE TEST
+(
+  ID SERIAL NOT NULL,
+  NAME VARCHAR NOT NULL,
+  CONSTRAINT TEST_PK PRIMARY KEY (ID)
+);
+
+INSERT INTO TEST (NAME)
+VALUES ('admission');
+
+
+
+
+
+
+
+
+
+
+
+
+

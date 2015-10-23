@@ -31,27 +31,24 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
-                <%--<div class="form-group">--%>
-                <%--<input type="text" placeholder="Email" class="form-control">--%>
-                <%--</div>--%>
-                <%--<div class="form-group">--%>
-                <%--<input type="password" placeholder="Password" class="form-control">--%>
-                <%--</div>--%>
                 <c:choose>
                     <c:when test="${not empty sessionScope.user}">
                         <div class="form-group">
                             <c:choose>
-                                <c:when test="${role eq 2}">
-                                    <c:set var="role_2"/>
+                                <c:when test="${sessionScope.user.roleId eq 1}">
+                                    <c:set var="url" value="/admin"/>
                                 </c:when>
-                                <c:when test="${role eq 3}">
-                                    <c:set var="role_3"/>
+                                <c:when test="${sessionScope.user.roleId eq 2}">
+                                    <c:set var="url" value="/user"/>
+                                </c:when>
+                                <c:when test="${sessionScope.user.roleId eq 3}">
+                                    <c:set var="url" value="/teacher"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:set var="role_4"/>
+                                    <c:set var="url" value="/MyStudentCourse"/>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="/teacher"
+                            <a href="${url}"
                                class="btn btn-success">Welcome, ${sessionScope.user.firstName}</a>
                             <a href="/logout" class="btn btn-danger">Выход</a>
 

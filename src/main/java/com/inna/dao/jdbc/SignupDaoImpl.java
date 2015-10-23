@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class SignupDaoImpl implements SignupDao {
@@ -42,6 +45,29 @@ public class SignupDaoImpl implements SignupDao {
     public void save(Registration reg) {
         jdbcTemplate.update("insert into users (email, password, role_id, first_name, last_name, birthday) values (?, md5(?), 2, ?, ?, ?)",
                 reg.getEmail(), reg.getPassword(), reg.getFirstName(), reg.getLastName(), reg.getBirthDay());
+    }
+
+
+
+
+    public void controller(int a) {
+        String res = service(a);
+        Map<String, Object> model = new HashMap<>();
+        model.put("test", res);
+        jsp(model);
+    }
+
+    public String service(int a) {
+        String result = dao(a);
+        return result;
+    }
+
+    public String dao(int a) {
+        return "a=" + a;
+    }
+
+    public void jsp(Map<String, Object> attributes) {
+        attributes.forEach((k, v) -> System.out.println(k + " " + v));
     }
 
 

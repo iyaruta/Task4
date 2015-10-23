@@ -23,7 +23,7 @@
     <div class="col-md-4">
       <h2>Пройдите тест</h2>
       <p>Пройдите тест чтобы вас записать на курсы.</p>
-      <p><a class="btn btn-default" target="_blank" href="/test" role="button">Оценить »</a></p>
+      <p><a class="btn btn-default" target="_blank" href="/startTest" role="button">Начать тест »</a></p>
     </div>
   </div>
 </div>
