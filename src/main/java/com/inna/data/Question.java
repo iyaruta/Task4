@@ -6,6 +6,7 @@ public class Question {
 
     private Long id;
     private String question;
+    private Long testId;
     private List<Option> options;
 
     private int size;
@@ -25,6 +26,14 @@ public class Question {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public Long getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Long testId) {
+        this.testId = testId;
     }
 
     public List<Option> getOptions() {

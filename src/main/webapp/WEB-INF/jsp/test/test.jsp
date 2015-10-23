@@ -7,6 +7,7 @@
 
 <ul class="nav nav-pills">
   <a href="/test" class="active">Назад</a>
+  <a href="/question/new?testId=${test.id}" class="active">Добавить вопрос</a>
   <h2>${test.name}</h2>
 
   <table class="table">

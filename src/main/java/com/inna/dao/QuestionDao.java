@@ -11,4 +11,6 @@ public interface QuestionDao {
     void save (Question question);
 
     List<Question> findByTestId(Long testId);
+
+    Question get(Long id);
 }

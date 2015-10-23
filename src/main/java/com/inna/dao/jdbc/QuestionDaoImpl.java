@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public class QuestionDaoImpl implements QuestionDao{
 
-    public static final String FIND_ALL_SQL = "SELECT q.id, q.question, count(o.question_id) as size FROM Question q " +
-            "left join OPTIONS o on q.id = o.question_id where q.test_id = ? group by q.id, q.question";
+    public static final String FIND_ALL_SQL = "SELECT q.id, q.question, q.test_id, count(o.question_id) as size FROM Question q " +
+            "left join OPTIONS o on q.id = o.question_id where q.test_id = ? group by q.id, q.question, q.test_id";
 
     @Autowired
     public JdbcTemplate jdbcTemplate;
@@ -35,9 +35,7 @@ public class QuestionDaoImpl implements QuestionDao{
 
     @Override
     public void save(Question question) {
-        jdbcTemplate.update("insert into question(question) value (?)",
-        question.getQuestion());
-
+        jdbcTemplate.update("insert into question(question, test_id) values (?, ?)",question.getQuestion(), question.getTestId());
     }
 
     @Override
@@ -46,8 +44,14 @@ public class QuestionDaoImpl implements QuestionDao{
             Question question = new Question();
             question.setId(rs.getLong("id"));
             question.setQuestion(rs.getString("question"));
+            question.setTestId(rs.getLong("test_id"));
             question.setSize(rs.getInt("size"));
             return question;
         });
+    }
+
+    @Override
+    public Question get(Long id) {
+        return null;
     }
 }
