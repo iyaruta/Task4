@@ -45,5 +45,23 @@ public class TestController {
         return "test/test";
     }
 
+    @RequestMapping(value = "/{id}/remove", method = RequestMethod.GET)
+    public String removeTestId(@PathVariable("id") Long testId) {
+        testDao.removeTest(testId);
+        return "redirect:/test";
 
+    }
+
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    public String updateTest(@PathVariable Long id, Model model) {
+        Test test = testDao.get(id);
+        model.addAttribute("test", test);
+        return "test/testUpdate";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateTestCreate(Test test) {
+        testDao.update(test);
+        return "redirect:/test";
+    }
 }

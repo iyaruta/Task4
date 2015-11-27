@@ -1,5 +1,6 @@
 package com.inna.dao.jdbc;
 
+import com.inna.dao.OptionDao;
 import com.inna.dao.SignupDao;
 import com.inna.data.Login;
 import com.inna.data.Registration;
@@ -20,6 +21,9 @@ public class SignupDaoImplTest {
 
     @Autowired
     private SignupDao signupDao;
+
+    @Autowired
+    private OptionDao optionDao;
 
     @Test
     public void testGetByName() throws Exception {

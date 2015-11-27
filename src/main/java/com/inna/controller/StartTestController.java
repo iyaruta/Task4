@@ -23,15 +23,8 @@ public class StartTestController {
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String start(Model model ) {
- //       Test test = testDao.findAll(question);
-//        model.addAttribute("question", test.getQuestion());
-//        model.addAttribute("id", test.getId());
 
         return "startTest";
     }
-
-//    @RequestMapping(method = RequestMethod.POST)
-
-
 
 }

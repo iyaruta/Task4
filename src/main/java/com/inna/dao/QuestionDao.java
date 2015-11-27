@@ -13,4 +13,8 @@ public interface QuestionDao {
     List<Question> findByTestId(Long testId);
 
     Question get(Long id);
+
+    void removeQuestion(Long id);
+
+    void update(Question question);
 }

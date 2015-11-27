@@ -23,6 +23,6 @@ public class AddTestController {
     @RequestMapping(method = RequestMethod.POST)
     public String register(Test test) {
         testDao.saveQuestion(test);
-        return "redirect:infoTest";
+        return "redirect:test";
     }
 }

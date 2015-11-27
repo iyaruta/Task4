@@ -8,12 +8,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.concurrent.atomic.LongAccumulator;
 
 @Repository
 public class QuestionDaoImpl implements QuestionDao{
 
     public static final String FIND_ALL_SQL = "SELECT q.id, q.question, q.test_id, count(o.question_id) as size FROM Question q " +
-            "left join OPTIONS o on q.id = o.question_id where q.test_id = ? group by q.id, q.question, q.test_id";
+            "left join OPTIONS o on q.id = o.question_id and o.deleted = 'f' where q.deleted = 'f' and q.test_id = ? group by q.id, q.question, q.test_id " +
+            "ORDER BY q.id ASC";
 
     @Autowired
     public JdbcTemplate jdbcTemplate;
@@ -25,7 +27,9 @@ public class QuestionDaoImpl implements QuestionDao{
             Question question = null;
             if (resultSet.next()) {
                 question = new Question();
+                question.setId(resultSet.getLong("id"));
                 question.setQuestion(resultSet.getString("question"));
+                question.setTestId(resultSet.getLong("test_id"));
             }
             return question;
 
@@ -35,7 +39,7 @@ public class QuestionDaoImpl implements QuestionDao{
 
     @Override
     public void save(Question question) {
-        jdbcTemplate.update("insert into question(question, test_id) values (?, ?)",question.getQuestion(), question.getTestId());
+        jdbcTemplate.update("insert into question(question, test_id, deleted) values (?, ?, 'f')", question.getQuestion(), question.getTestId());
     }
 
     @Override
@@ -48,10 +52,31 @@ public class QuestionDaoImpl implements QuestionDao{
             question.setSize(rs.getInt("size"));
             return question;
         });
+
     }
 
     @Override
     public Question get(Long id) {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM QUESTION WHERE ID = ?", new Object[]{id}, rs -> {
+            rs.next();
+            Question question = new Question();
+            question.setId(rs.getLong("id"));
+            question.setQuestion(rs.getString("question"));
+            question.setTestId(rs.getLong("test_id"));
+            return question;
+        });
     }
+
+    @Override
+    public void removeQuestion(Long id){
+        jdbcTemplate.update("UPDATE QUESTION SET DELETED=TRUE WHERE id = ?", id);
+    }
+
+    @Override
+    public void update(Question question){
+        jdbcTemplate.update("UPDATE question SET question = ? WHERE id = ?", question.getQuestion(), question.getId());
+    }
+
+
+
 }

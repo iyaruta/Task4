@@ -8,6 +8,7 @@ public interface UserDao {
 
    List<User> findByRoleId(int role);
 
+   User get(Long id);
 
 
 }

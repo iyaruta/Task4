@@ -9,12 +9,13 @@
   <tbody>
   <c:forEach items="${test}" var="testes" varStatus="status">
     <tr>
-      <th> scope="id">${status.index + 1}</th>
+      <th> scope="id">${status.index + 1}</th>Ï
 
       <td>${testes.question}</td>
     </tr>
   </c:forEach>
   </tbody>
+
   <p>How much color rainbow </p>
   <p>
     <button type="button" class="btn btn-default btn-lg">a</button>

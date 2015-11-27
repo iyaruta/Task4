@@ -36,7 +36,7 @@ public class LoginController {
             if (registration.getRoleId() == 1) {
                 return "redirect:/admin";
             } else if (registration.getRoleId() == 2) {
-                return "redirect:/test";
+                return "redirect:/user";
             } else  if(registration.getRoleId() == 3){
                 return "redirect:/indexCourse";
             } else if(registration.getRoleId() == 4) {

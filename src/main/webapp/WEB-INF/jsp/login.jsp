@@ -23,4 +23,4 @@
     </form>
 </div>
 
-<%@include file="include/footer.jsp" %>a
+<%@include file="include/footer.jsp" %>

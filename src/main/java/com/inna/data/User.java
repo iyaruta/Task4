@@ -4,10 +4,20 @@ import java.util.Date;
 
 public class User {
 
+    private int id;
     private int roleId;
     private String firstName;
     private String lastName;
     private Date birthDay;
+    private int size;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Date getBirthDay() {
         return birthDay;
@@ -41,4 +51,11 @@ public class User {
         this.roleId = roleId;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

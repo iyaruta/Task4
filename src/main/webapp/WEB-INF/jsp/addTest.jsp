@@ -18,8 +18,8 @@
             </span>
     </c:if>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Сохранить</button>
-    <a href="/infoTest" class="btn btn-lg btn-primary btn-block">Выйти</a>
+    <a href="/test" class="btn btn-lg btn-primary btn-block">Выйти</a>
   </form>
 </div>
 
-<%@include file="include/footer.jsp" %>a
+<%@include file="include/footer.jsp" %>

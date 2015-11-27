@@ -9,6 +9,7 @@ public class Course {
     private String description;
     private Date start;
     private Date end;
+    private int size;
 
 
 
@@ -50,5 +51,13 @@ public class Course {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

@@ -13,7 +13,8 @@ import java.util.List;
 @Repository
 public class TestDaoImpl implements TestDao {
 
-    public static final String FIND_ALL_SQL = "SELECT t.id, t.name, count(q.test_id) as size FROM test t left join question q on t.id = q.test_id group by t.id, t.name";
+    public static final String FIND_ALL_SQL = "SELECT t.id, t.name, count(q.test_id) as size FROM test t left join question q on t.id = q.test_id and q.deleted = 'f' where t.deleted = 'f' group by t.id, t.name " +
+            "ORDER BY t.id ASC";
     public static final String GET_SQL = "SELECT t.id, t.name, count(q.test_id) as size FROM test t left join question q on t.id = q.test_id where t.id = ? group by t.id, t.name";
 
     @Autowired
@@ -28,7 +29,7 @@ public class TestDaoImpl implements TestDao {
 
     @Override
     public void saveQuestion(Test test) {
-        jdbcTemplate.update("insert into test(name) VALUES (?)", test.getName());
+        jdbcTemplate.update("insert into test(name, deleted) VALUES (?, 'f')", test.getName());
     }
 
     @Override
@@ -46,6 +47,18 @@ public class TestDaoImpl implements TestDao {
         test.setSize(rs.getInt("size"));
         return test;
     }
+
+    @Override
+    public void removeTest(Long testId) {
+        jdbcTemplate.update("UPDATE test set deleted = true where id = ?", testId);
+
+    }
+
+    @Override
+    public void update(Test test) {
+        jdbcTemplate.update("UPDATE test SET name = ? where id = ?", test.getName(), test.getId());
+    }
+
 
 }
 

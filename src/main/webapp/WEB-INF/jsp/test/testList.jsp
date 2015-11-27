@@ -6,7 +6,6 @@
 <%@include file="../include/header.jsp" %>
 
 <ul class="nav nav-pills">
-  <a href="/remove" class="active">Удалить</a>
   <a href="/addTest" class="active">Добавить тест</a>
   <table class="table">
     <thead>
@@ -14,6 +13,8 @@
         <th>#</th>
         <th>Название теста</th>
         <th>Количество вопросов</th>
+        <th>Удалить тест</th>
+        <th>Изминить</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -23,6 +24,8 @@
         <td scope="row">${status.index + 1}</td>
         <td><a href="/test/${item.id}">${item.name}</a></td>
         <td>${item.size}</td>
+        <td><a href="/test/${item.id}/remove" class="active">Удалить</a></td>
+        <td><a href="/test/${item.id}/update" class="active">Изминить</a> </td>
         <td>&nbsp;</td>
       </tr>
     </c:forEach>

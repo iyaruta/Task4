@@ -42,7 +42,7 @@ VALUES ('student', md5('123123'), 4, 'Alex', 'Rudenko');
 CREATE TABLE COURSE
 (
   ID SERIAL NOT NULL,
-  FIRST_NAME VARCHAR (50),
+  NAME VARCHAR (50),
   DESCRIPTION VARCHAR (250),
   START_TIME TIMESTAMP,
   END_TIME TIMESTAMP,
@@ -51,13 +51,12 @@ CREATE TABLE COURSE
 );
 
 alter table COURSE
-   add constraint FK_CTS_REF_ROLE foreign key (TEACHER_ID)
+   add constraint FK_CTS_REF_ROLE_COURSE foreign key (TEACHER_ID)
       references USERS (id)
       on delete restrict on update restrict;
 
 INSERT INTO COURSE(FIRST_NAME, DESCRIPTION, START_TIME, END_TIME, TEACHER_ID)
-VALUES ('физика', 'закон притижения', '10.01.2015', '10.10.2015', COURSE.TEACHER_ID);
-
+VALUES ('физика', 'закон притижения', '10.01.2015', '10.12.2015', '1');
 
 CREATE TABLE COURSE_TO_STUDENT
 (
@@ -82,6 +81,7 @@ CREATE TABLE QUESTION
   ID SERIAL NOT NULL,
   TEST_ID BIGINT NOT NULL,
   QUESTION VARCHAR NOT NULL,
+  DELETED BOOLEAN,
   CONSTRAINT QUESTION_PK PRIMARY KEY (ID)
 );
 
@@ -102,6 +102,7 @@ CREATE TABLE OPTIONS
   QUESTION_ID BIGINT NOT NULL,
   OPTIONS VARCHAR NOT NULL,
   SCORE INTEGER NOT NULL,
+  DELETED BOOLEAN,
   CONSTRAINT OPTIONS_PK PRIMARY KEY (ID)
 );
 
@@ -126,16 +127,108 @@ CREATE TABLE TEST
 (
   ID SERIAL NOT NULL,
   NAME VARCHAR NOT NULL,
+  DELETED BOOLEAN,
   CONSTRAINT TEST_PK PRIMARY KEY (ID)
 );
 
 INSERT INTO TEST (NAME)
 VALUES ('admission');
 
+CREATE TABLE TEST_TO_USER
+(
+   ID SERIAL NOT NULL,
+   USER_ID BIGINT NOT NULL,
+   TEST_ID BIGINT NOT NULL,
+   RESULT BIGINT,
+   START_TIME DATE,
+   CONSTRAINT TEST_TO_USER_PK PRIMARY KEY (ID)
+);
+
+alter table TEST_TO_USER
+  add constraint FK_CTS_REF_USERS foreign KEY (USER_ID)
+   references USERS (ID)
+    on delete restrict on update restrict;
 
 
+alter table TEST_TO_USER
+  add constraint FK_CTS_REF_TEST foreign KEY (TEST_ID)
+   references TEST (ID)
+    on delete restrict on update restrict;
+
+CREATE TABLE ANSWER_TO_USER
+(
+  ID SERIAL NOT NULL,
+  TEST_TO_USER_ID BIGINT NOT NULL,
+  QUESTIN_ID BIGINT NOT NULL,
+  OPTIONS_ID BIGINT NOT NULL,
+  SCORE INTEGER NOT NULL,
+  CONSTRAINT ANSWER_TO_USER_PK PRIMARY KEY (ID)
+);
+
+alter table ANSWER_TO_USER
+  add constraint FK_CTS_REF_TEST_TO_USER foreign KEY (TEST_TO_USER_ID)
+   references TEST_TO_USER (ID)
+    on delete restrict on update restrict;
+
+alter table ANSWER_TO_USER
+  add constraint FK_CTS_REF_QUESTION foreign KEY (QUESTIN_ID)
+   references QUESTION (ID)
+    on delete restrict on update restrict;
 
 
+alter table ANSWER_TO_USER
+  add constraint FK_CTS_REF_OPTIONS foreign KEY (OPTIONS_ID)
+   references OPTIONS (ID)
+    on delete restrict on update restrict;
+
+
+CREATE TABLE ELECTIVE
+(
+   ID SERIAL NOT NULL,
+   ELECTIVES VARCHAR NOT NULL,
+   CONSTRAINT ELECTIVE_PK PRIMARY KEY (ID)
+
+);
+
+INSERT INTO ELECTIVE(ELECTIVES)
+VALUES ('математический');
+
+CREATE TABLE ENROLLEE
+(
+   USER_ID BIGINT NOT NULL,
+   ELECTIVE_ID BIGINT NOT NULL,
+   CONSTRAINT ENROLLEE_PK PRIMARY KEY (USER_ID, ELECTIVE_ID)
+);
+
+alter table ENROLLEE
+  add constraint FK_CTS_REF_USERS foreign key (USER_ID)
+    references USERS (ID)
+      on delete restrict on update restrict;
+
+
+alter table ENROLLEE
+  add constraint FK_CTS_REF_ELECTIVE foreign key (ELECTIVE_ID)
+    references ELECTIVE (ID)
+     on delete restrict on update restrict;
+
+
+CREATE TABLE ELECTIVE_TEST
+(
+  ELECTIVE_ID BIGINT NOT NULL,
+  TEST_ID BIGINT NOT NULL,
+  CONSTRAINT ELECTIVE_TEST_PK PRIMARY KEY (ELECTIVE_ID, TEST_ID)
+
+);
+
+alter table ELECTIVE_TEST
+  add constraint FK_REF_TEST foreign key (TEST_ID)
+    references TEST (ID)
+     on delete restrict on update restrict;
+
+alter table ELECTIVE_TEST
+  add constraint FK_REF_ELECTIVE foreign key (ELECTIVE_ID)
+    references ELECTIVE (ID)
+     on delete restrict on update restrict;
 
 
 

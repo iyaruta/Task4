@@ -12,7 +12,8 @@ public interface TestDao {
 
     Test get(Long id);
 
-//    int selestedId (int id);
+    void removeTest(Long testId);
 
+    void update(Test test);
 
 }

@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -6,29 +5,29 @@
 <%@include file="../include/header.jsp" %>
 
 <ul class="nav nav-pills">
-  <a href="/test" class="active">Назад</a>
-  <a href="/question/new?testId=${test.id}" class="active">Добавить вопрос</a>
-  <h2>${test.name}</h2>
+  <a href="/test/${question.testId}" class="active">Назад</a>
+  <a href="/option/new?questionId=${question.id}" class="active">Добавить ответ</a>
+  <h2>${question.question}</h2>
 
   <table class="table">
     <thead>
     <tr>
       <th>#</th>
-      <th>Вопрос</th>
-      <th>Количество ответов</th>
-      <th>Удалить вопрос</th>
+      <th>Ответы</th>
+      <th>Количество балов</th>
+      <th>Удалить вариант</th>
       <th>Изминить</th>
       <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${questions}" var="item" varStatus="status">
+    <c:forEach items="${option}" var="item" varStatus="status">
       <tr>
         <td scope="row">${status.index + 1}</td>
-        <td><a href="/question/${item.id}">${item.question}</a></td>
-        <td>${item.size}</td>
-        <td><a href="/question/${item.id}/remove" class="active">Удалить</a></td>
-        <td><a href="/question/${item.id}/update" class="active">Изминить</a></td>
+        <td>${item.option}</td>
+        <td>${item.score}</td>
+        <td><a href="/option/${item.id}/remove" class="active">Удалить</a> </td>
+        <td><a href="/option/${item.id}/update" class="active">Изминить</a> </td>
         <td>&nbsp;</td>
       </tr>
     </c:forEach>

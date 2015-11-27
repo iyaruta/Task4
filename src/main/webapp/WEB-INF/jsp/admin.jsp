@@ -23,7 +23,7 @@
         <li role="2" class="${role_2}"><a href="/admin/user?role=2">User</a></li>
         <li role="3" class="${role_3}"><a href="/admin/user?role=3">Teacher</a></li>
         <li role="4" class="${role_4}"><a href="/admin/user?role=4">Student</a></li>
-            <a href="/infoTest" class="active">Тест</a>
+            <a href="/test" class="active">Тест</a>
 
 <table class="table">
     <thead>

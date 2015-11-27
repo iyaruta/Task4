@@ -1,23 +1,23 @@
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@include file="../include/header.jsp" %>
+<%@include file="include/header.jsp" %>
 
 <ul class="nav nav-pills">
-  <a href="/test" class="active">Назад</a>
-  <a href="/question/new?testId=${test.id}" class="active">Добавить вопрос</a>
-  <h2>${test.name}</h2>
-
+  <a href="/user" class="active">Назад</a>
+  <h2>${elective.elective}</h2>
+<tr>
+  <th>Вступительный тест</th>
+</tr>
   <table class="table">
     <thead>
     <tr>
       <th>#</th>
-      <th>Вопрос</th>
-      <th>Количество ответов</th>
-      <th>Удалить вопрос</th>
-      <th>Изминить</th>
+      <th>Тест</th>
+      <th>Количество правильных ответов</th>
       <th>&nbsp;</th>
     </tr>
     </thead>
@@ -35,4 +35,4 @@
     </tbody>
   </table>
 
-<%@include file="../include/footer.jsp" %>
+<%@include file="include/footer.jsp" %>
